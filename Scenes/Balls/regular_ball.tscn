@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://duw2aer75ysmp"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://bti7piy5fhhmo" path="res://PhysicsMaterials/regular_ball_physics_material.tres" id="1_svb5q"]
+[ext_resource type="Material" uid="uid://b34lqio88ylra" path="res://Materials/herringbone_parquet_1k.tres" id="2_bowk0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jic4c"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_6rg8b"]
+material = ExtResource("2_bowk0")
+radius = 0.3
+height = 0.6
+
+[node name="RegularBall" type="RigidBody3D"]
+collision_layer = 32769
+mass = 1.5
+physics_material_override = ExtResource("1_svb5q")
+inertia = Vector3(0.1, 0.1, 0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jic4c")
+
+[node name="SphereMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6rg8b")
+skeleton = NodePath("../..")

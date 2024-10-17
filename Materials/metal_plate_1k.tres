@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://b1ahqdwfhn4ud"]
+
+[ext_resource type="Texture2D" uid="uid://440ei3hmnjxj" path="res://Textures/MetalPlate1k/metal_plate_diff_1k.png" id="1_o0ief"]
+[ext_resource type="Texture2D" uid="uid://5bfs8e220t6t" path="res://Textures/MetalPlate1k/metal_plate_arm_1k.png" id="2_rar6d"]
+[ext_resource type="Texture2D" uid="uid://0f8qvmsgm50c" path="res://Textures/MetalPlate1k/metal_plate_nor_gl_1k.png" id="4_rpuek"]
+
+[resource]
+albedo_texture = ExtResource("1_o0ief")
+metallic = 1.0
+metallic_texture = ExtResource("2_rar6d")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_rar6d")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_rpuek")
+ao_enabled = true
+ao_texture = ExtResource("2_rar6d")
+uv1_scale = Vector3(1.325, 1.325, 1.325)
+uv1_triplanar = true

@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bwg2whyudp4d0"]
+
+[ext_resource type="Texture2D" uid="uid://ccmfcylehaoas" path="res://Textures/RawPlankWall1k/raw_plank_wall_diff_1k.png" id="1_f4af4"]
+[ext_resource type="Texture2D" uid="uid://beqg28smmnuo" path="res://Textures/RawPlankWall1k/raw_plank_wall_arm_1k.png" id="2_5pbce"]
+[ext_resource type="Texture2D" uid="uid://b76khkwwleq3d" path="res://Textures/RawPlankWall1k/raw_plank_wall_disp_1k.png" id="3_s5lfa"]
+[ext_resource type="Texture2D" uid="uid://dmvkyj8h7bpy5" path="res://Textures/RawPlankWall1k/raw_plank_wall_nor_gl_1k.png" id="4_r5xy1"]
+
+[resource]
+albedo_texture = ExtResource("1_f4af4")
+metallic = 1.0
+metallic_texture = ExtResource("2_5pbce")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_5pbce")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_r5xy1")
+ao_enabled = true
+ao_texture = ExtResource("2_5pbce")
+heightmap_texture = ExtResource("3_s5lfa")
+uv1_scale = Vector3(0.685, 0.685, 0.685)

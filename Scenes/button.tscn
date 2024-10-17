@@ -1,0 +1,98 @@
+[gd_scene load_steps=15 format=3 uid="uid://bvrb21uiwqsr2"]
+
+[ext_resource type="Script" path="res://Scripts/button.gd" id="1_wkon6"]
+[ext_resource type="Texture2D" uid="uid://d2xah3fkkxf11" path="res://Textures/RockTileFloor1k/rock_tile_floor_diff_1k.png" id="2_85o2p"]
+[ext_resource type="Material" uid="uid://dlsn4rwwh1h73" path="res://Materials/green_metal_rust_1k.tres" id="2_p6a2f"]
+[ext_resource type="Material" uid="uid://cfdr8e5pabef2" path="res://Materials/red_metal_rust_1k.tres" id="2_qa474"]
+[ext_resource type="Texture2D" uid="uid://dv1vc8i5e32m3" path="res://Textures/RockTileFloor1k/rock_tile_floor_arm_1k.png" id="3_wlwjf"]
+[ext_resource type="Texture2D" uid="uid://4mi3x3wd3muw" path="res://Textures/RockTileFloor1k/rock_tile_floor_disp_1k.png" id="4_yw6mx"]
+[ext_resource type="Texture2D" uid="uid://b7e6lcyldw7r2" path="res://Textures/RockTileFloor1k/rock_tile_floor_nor_gl_1k.png" id="5_h053b"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aqgvd"]
+top_radius = 0.4
+height = 0.1
+radial_segments = 32
+rings = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11snv"]
+albedo_color = Color(0.384745, 0.382762, 0.365569, 1)
+albedo_texture = ExtResource("2_85o2p")
+metallic = 1.0
+metallic_texture = ExtResource("3_wlwjf")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_wlwjf")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_h053b")
+ao_enabled = true
+ao_texture = ExtResource("3_wlwjf")
+heightmap_texture = ExtResource("4_yw6mx")
+uv1_triplanar = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_506e8"]
+friction = 0.5
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ek4mw"]
+material = ExtResource("2_qa474")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.05
+radial_segments = 32
+rings = 0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4suap"]
+margin = 0.01
+height = 0.05
+radius = 0.29
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hsklr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mnjka"]
+
+[node name="Button" type="Node3D"]
+script = ExtResource("1_wkon6")
+active_material = ExtResource("2_p6a2f")
+inactive_material = ExtResource("2_qa474")
+
+[node name="Rim" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+use_collision = true
+mesh = SubResource("CylinderMesh_aqgvd")
+material = SubResource("StandardMaterial3D_11snv")
+
+[node name="Cutout" type="CSGCylinder3D" parent="Rim"]
+operation = 2
+radius = 0.3
+height = 0.1
+sides = 32
+
+[node name="MovingPart" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+collision_layer = 3
+collision_mask = 3
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_506e8")
+gravity_scale = 0.0
+constant_force = Vector3(0, 50, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="MovingPart"]
+mesh = SubResource("CylinderMesh_ek4mw")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovingPart"]
+shape = SubResource("CylinderShape3D_4suap")
+
+[node name="Cap" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_hsklr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_mnjka")

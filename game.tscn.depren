@@ -1,0 +1,86 @@
+[gd_scene load_steps=17 format=3 uid="uid://bpdgep5s0grcs"]
+
+[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="1_rd627"]
+[ext_resource type="Script" path="res://Scripts/player_controller.gd" id="1_wlado"]
+[ext_resource type="PackedScene" uid="uid://duw2aer75ysmp" path="res://Scenes/Balls/regular_ball.tscn" id="4_e433d"]
+[ext_resource type="PackedScene" uid="uid://bxwbclv7nahcc" path="res://Scenes/Rails/curved_rails_90.tscn" id="4_eu7u0"]
+[ext_resource type="PackedScene" uid="uid://cjt6bvg8fs7nl" path="res://Scenes/Rails/straight_rails.tscn" id="4_h1j47"]
+[ext_resource type="Material" uid="uid://dwqiyu5tp3656" path="res://Materials/mud_forest_1k.tres" id="5_3k6we"]
+[ext_resource type="Material" uid="uid://51ogk8i36442" path="res://Materials/clay_floor_1k.tres" id="5_n03bn"]
+[ext_resource type="PackedScene" uid="uid://dnyefxjfl1uss" path="res://Scenes/Balls/light_ball.tscn" id="7_gqweb"]
+[ext_resource type="PackedScene" uid="uid://c8b5bm0p8qyv5" path="res://Scenes/Balls/heavy_ball.tscn" id="8_gfnkq"]
+[ext_resource type="PackedScene" uid="uid://dtf36vfma550u" path="res://Scenes/test_level.tscn" id="10_orlk3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f0kd3"]
+
+[sub_resource type="Sky" id="Sky_8s8xs"]
+sky_material = SubResource("ProceduralSkyMaterial_f0kd3")
+
+[sub_resource type="Environment" id="Environment_tv1gy"]
+background_mode = 2
+sky = SubResource("Sky_8s8xs")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_t2isv"]
+auto_exposure_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ua7q4"]
+material = ExtResource("5_n03bn")
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_suvrw"]
+material = ExtResource("5_3k6we")
+size = Vector3(4, 0.25, 4)
+
+[node name="Game" type="Node"]
+
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("camera_setup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03834, 0)
+script = ExtResource("1_wlado")
+camera_setup = NodePath("CameraSetup")
+
+[node name="CameraSetup" type="Node3D" parent="Player" node_paths=PackedStringArray("spring_arm")]
+script = ExtResource("1_rd627")
+spring_arm = NodePath("SpringArm3D")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraSetup"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0)
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraSetup/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="StraightRails" parent="." instance=ExtResource("4_h1j47")]
+transform = Transform3D(1, -0.000593195, -0.000366885, 0.000593184, 1, -3.01506e-05, 0.000366903, 2.99377e-05, 1, 0, 0, 4.5)
+
+[node name="CurvedRails90" parent="." instance=ExtResource("4_eu7u0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 8.09292)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tv1gy")
+camera_attributes = SubResource("CameraAttributesPractical_t2isv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+
+[node name="Floor" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("BoxMesh_ua7q4")
+
+[node name="Ground" type="CSGMesh3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+operation = 2
+mesh = SubResource("BoxMesh_suvrw")
+
+[node name="RegularBall" parent="." instance=ExtResource("4_e433d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.686054, 1.02469, -1.1512)
+
+[node name="LightBall" parent="." instance=ExtResource("7_gqweb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48207, 1.02867, 0.644744)
+
+[node name="HeavyBall" parent="." instance=ExtResource("8_gfnkq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12921, 1.01835, 1.01465)
+
+[node name="TestLevel" parent="." instance=ExtResource("10_orlk3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.98477, 0.611942, 8.11958)

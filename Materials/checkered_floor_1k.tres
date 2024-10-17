@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://jjvlewryrydg"]
+
+[ext_resource type="Texture2D" uid="uid://c2k2fe6mo7st" path="res://Textures/CheckeredFloor1k/floor_tiles_06_diff_1k.png" id="1_q5by5"]
+[ext_resource type="Texture2D" uid="uid://dorktu51xvh78" path="res://Textures/CheckeredFloor1k/floor_tiles_06_arm_1k.png" id="2_c2ags"]
+[ext_resource type="Texture2D" uid="uid://dnxu23xcur7i1" path="res://Textures/CheckeredFloor1k/floor_tiles_06_nor_gl_1k.png" id="4_1qlx3"]
+
+[resource]
+albedo_texture = ExtResource("1_q5by5")
+metallic = 0.2
+metallic_texture_channel = 2
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_1qlx3")
+ao_enabled = true
+ao_texture = ExtResource("2_c2ags")
+uv1_scale = Vector3(2.15, 2.15, 2.15)
+uv1_triplanar = true

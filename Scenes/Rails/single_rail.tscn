@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3esw7d67psjs"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dk0j8dg2pgoar" path="res://PhysicsMaterials/rail_physics_material.tres" id="1_uauac"]
+[ext_resource type="Material" uid="uid://bfneinyp81k6j" path="res://Materials/shiny_metal_1k.tres" id="2_eo7i6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yrlxl"]
+height = 4.0
+radius = 0.08
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gmpct"]
+material = ExtResource("2_eo7i6")
+top_radius = 0.08
+bottom_radius = 0.08
+height = 4.0
+radial_segments = 24
+rings = 1
+
+[node name="SingleRail" type="StaticBody3D"]
+transform = Transform3D(0.8, -0.000474556, -0.000293508, 0.000474547, 0.8, -2.41243e-05, 0.000293522, 2.39502e-05, 0.8, 0, 0, 1.7021)
+physics_material_override = ExtResource("1_uauac")
+
+[node name="CollisionShapeL" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yrlxl")
+
+[node name="MeshL" type="MeshInstance3D" parent="CollisionShapeL"]
+mesh = SubResource("CylinderMesh_gmpct")
+skeleton = NodePath("../../..")

@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cjk2t4qqnbcqn"]
+
+[ext_resource type="Texture2D" uid="uid://d2xah3fkkxf11" path="res://Textures/RockTileFloor1k/rock_tile_floor_diff_1k.png" id="1_63n2k"]
+[ext_resource type="Texture2D" uid="uid://dv1vc8i5e32m3" path="res://Textures/RockTileFloor1k/rock_tile_floor_arm_1k.png" id="2_p6qbs"]
+[ext_resource type="Texture2D" uid="uid://b7e6lcyldw7r2" path="res://Textures/RockTileFloor1k/rock_tile_floor_nor_gl_1k.png" id="4_oq8vj"]
+
+[resource]
+albedo_texture = ExtResource("1_63n2k")
+metallic = 1.0
+metallic_texture = ExtResource("2_p6qbs")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_p6qbs")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_oq8vj")
+ao_enabled = true
+ao_texture = ExtResource("2_p6qbs")
+uv1_triplanar = true

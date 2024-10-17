@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8b5bm0p8qyv5"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://b81i1w3lnlw3k" path="res://PhysicsMaterials/heavy_ball_physics_material.tres" id="1_636hy"]
+[ext_resource type="Material" uid="uid://lqlvu1kxkjo0" path="res://Materials/gravel_concrete_1k.tres" id="2_wx0of"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jic4c"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_yr2rf"]
+material = ExtResource("2_wx0of")
+radius = 0.3
+height = 0.6
+
+[node name="HeavyBall" type="RigidBody3D"]
+collision_layer = 32769
+mass = 7.0
+physics_material_override = ExtResource("1_636hy")
+inertia = Vector3(0.2, 0.2, 0.2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jic4c")
+
+[node name="SphereMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_yr2rf")
+skeleton = NodePath("../..")

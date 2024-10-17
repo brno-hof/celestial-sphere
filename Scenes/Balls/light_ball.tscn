@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnyefxjfl1uss"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dlu6ulivy4we7" path="res://PhysicsMaterials/light_ball_physics_material.tres" id="1_5cym3"]
+[ext_resource type="Material" uid="uid://cxqs88aeyvg82" path="res://Materials/fabric_1k.tres" id="2_o6v1o"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jic4c"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_7c245"]
+material = ExtResource("2_o6v1o")
+radius = 0.3
+height = 0.6
+
+[node name="LightBall" type="RigidBody3D"]
+collision_layer = 32769
+mass = 0.5
+physics_material_override = ExtResource("1_5cym3")
+inertia = Vector3(0.1, 0.1, 0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jic4c")
+
+[node name="SphereMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_7c245")
+skeleton = NodePath("../..")

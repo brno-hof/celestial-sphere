@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://pnsjdkjfrffl"]
+
+[ext_resource type="Script" path="res://Scripts/transmuter.gd" id="1_rhwym"]
+[ext_resource type="Material" uid="uid://lqlvu1kxkjo0" path="res://Materials/gravel_concrete_1k.tres" id="2_1mmn3"]
+[ext_resource type="Material" uid="uid://b1ahqdwfhn4ud" path="res://Materials/metal_plate_1k.tres" id="2_begly"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aqgvd"]
+top_radius = 0.35
+bottom_radius = 0.45
+height = 0.05
+radial_segments = 32
+rings = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1wfa1"]
+material = ExtResource("2_begly")
+top_radius = 0.3
+bottom_radius = 0.1
+height = 0.05
+radial_segments = 32
+rings = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p082g"]
+material = ExtResource("2_1mmn3")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.01
+radial_segments = 32
+rings = 0
+
+[node name="Transmuter" type="Node3D" node_paths=PackedStringArray("bottom")]
+script = ExtResource("1_rhwym")
+bottom = NodePath("Rim/Bottom")
+
+[node name="Rim" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("CylinderMesh_aqgvd")
+material = ExtResource("2_begly")
+
+[node name="Cutout" type="CSGMesh3D" parent="Rim"]
+operation = 2
+mesh = SubResource("CylinderMesh_1wfa1")
+
+[node name="Bottom" type="CSGMesh3D" parent="Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00597535, 0)
+mesh = SubResource("CylinderMesh_p082g")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0.4, 0)
+collision_mask = 32768
+hit_from_inside = true

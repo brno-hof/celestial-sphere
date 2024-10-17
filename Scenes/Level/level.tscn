@@ -1,0 +1,496 @@
+[gd_scene load_steps=31 format=3 uid="uid://cb3cqowp5jmtx"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_dn8fr"]
+[ext_resource type="Material" uid="uid://jhtx3fsaxyg7" path="res://Materials/pavement_1k.tres" id="2_f3sl1"]
+[ext_resource type="Material" uid="uid://b1ahqdwfhn4ud" path="res://Materials/metal_plate_1k.tres" id="3_qvicb"]
+[ext_resource type="Material" uid="uid://cjk2t4qqnbcqn" path="res://Materials/rock_tile_floor_1k.tres" id="4_v4u5e"]
+[ext_resource type="PackedScene" uid="uid://mkjqivaxyp06" path="res://Scenes/cutout.tscn" id="5_5t7j0"]
+[ext_resource type="PackedScene" uid="uid://d2xwm5spm55xf" path="res://Scenes/quiver_tree.tscn" id="6_yw0cs"]
+[ext_resource type="PackedScene" uid="uid://bvrb21uiwqsr2" path="res://Scenes/button.tscn" id="7_jxtyg"]
+[ext_resource type="PackedScene" uid="uid://coy3lysv4q8eo" path="res://Scenes/gate.tscn" id="8_yppr0"]
+[ext_resource type="PackedScene" uid="uid://pnsjdkjfrffl" path="res://Scenes/transmuter.tscn" id="9_ked7s"]
+[ext_resource type="Material" uid="uid://dqjqr7gs1ybfe" path="res://Materials/double_brick_floor_1k.tres" id="10_dj5xn"]
+[ext_resource type="Material" uid="uid://d140fvhvn0brb" path="res://Materials/patterned_clay_plaster_1k.tres" id="11_26mt5"]
+[ext_resource type="PackedScene" uid="uid://b7ylcmhol6vpe" path="res://Scenes/box.tscn" id="12_c0ray"]
+[ext_resource type="PackedScene" uid="uid://bxwbclv7nahcc" path="res://Scenes/Rails/curved_rails_90.tscn" id="13_myxrl"]
+[ext_resource type="PackedScene" uid="uid://cjt6bvg8fs7nl" path="res://Scenes/Rails/straight_rails.tscn" id="14_7i6mq"]
+[ext_resource type="PackedScene" uid="uid://c8b5bm0p8qyv5" path="res://Scenes/Balls/heavy_ball.tscn" id="15_uxq65"]
+[ext_resource type="PhysicsMaterial" uid="uid://dk0j8dg2pgoar" path="res://PhysicsMaterials/rail_physics_material.tres" id="16_jdoty"]
+[ext_resource type="Material" uid="uid://bfneinyp81k6j" path="res://Materials/shiny_metal_1k.tres" id="17_x4clp"]
+[ext_resource type="PackedScene" uid="uid://b8ekw2ouaavv6" path="res://Scenes/Rails/single_curved_rail_90.tscn" id="18_k2heb"]
+[ext_resource type="Material" uid="uid://dwqiyu5tp3656" path="res://Materials/mud_forest_1k.tres" id="19_m45xw"]
+[ext_resource type="Material" uid="uid://jjvlewryrydg" path="res://Materials/checkered_floor_1k.tres" id="20_7rq7h"]
+[ext_resource type="Texture2D" uid="uid://66wapgqatyma" path="res://Textures/Sky4k/autumn_field_puresky_4k.hdr" id="21_ax6cc"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_7ior8"]
+material = ExtResource("3_qvicb")
+left_to_right = 0.0
+size = Vector3(0.05, 0.1, 3.1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_mxj3p"]
+material = ExtResource("10_dj5xn")
+left_to_right = 1.0
+size = Vector3(3, 1, 0.6)
+
+[sub_resource type="PrismMesh" id="PrismMesh_oh4sg"]
+material = ExtResource("10_dj5xn")
+left_to_right = 1.0
+size = Vector3(3, 1, 0.6)
+
+[sub_resource type="PrismMesh" id="PrismMesh_s1hqc"]
+material = ExtResource("10_dj5xn")
+left_to_right = 1.0
+size = Vector3(3, 2, 0.6)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yrlxl"]
+height = 4.0
+radius = 0.08
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gmpct"]
+material = ExtResource("17_x4clp")
+top_radius = 0.08
+bottom_radius = 0.08
+height = 4.0
+radial_segments = 24
+rings = 1
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lcm30"]
+panorama = ExtResource("21_ax6cc")
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_r8nqr"]
+sky_material = SubResource("PanoramaSkyMaterial_lcm30")
+process_mode = 3
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_656td"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_r8nqr")
+sky_custom_fov = 50.0
+sky_rotation = Vector3(0, 1.5708, 0)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_dn8fr")
+start_ball_type = 1
+
+[node name="Platforms" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 5
+
+[node name="Platform1" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 8)
+size = Vector3(1.5, 0.5, 1.5)
+material = ExtResource("2_f3sl1")
+
+[node name="Cutout2" type="CSGCombiner3D" parent="Platforms/Platform1"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.25, 0)
+operation = 2
+
+[node name="Cutout1" type="CSGBox3D" parent="Platforms/Platform1/Cutout2"]
+size = Vector3(2.9, 0.05, 2.9)
+material = ExtResource("3_qvicb")
+
+[node name="Edges" type="CSGCombiner3D" parent="Platforms/Platform1/Cutout2"]
+operation = 2
+
+[node name="CutoutEdge1" type="CSGMesh3D" parent="Platforms/Platform1/Cutout2/Edges"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.4, 0, 0)
+mesh = SubResource("PrismMesh_7ior8")
+
+[node name="CutoutEdge2" type="CSGMesh3D" parent="Platforms/Platform1/Cutout2/Edges"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, -1.4)
+mesh = SubResource("PrismMesh_7ior8")
+
+[node name="CutoutEdge3" type="CSGMesh3D" parent="Platforms/Platform1/Cutout2/Edges"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0, 0, 1.4)
+mesh = SubResource("PrismMesh_7ior8")
+
+[node name="CutoutEdge4" type="CSGMesh3D" parent="Platforms/Platform1/Cutout2/Edges"]
+transform = Transform3D(4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 3.82137e-15, 8.74228e-08, -1, -1.4, 0, 0)
+mesh = SubResource("PrismMesh_7ior8")
+
+[node name="SpawnPoint" type="Marker3D" parent="Platforms/Platform1"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Bridge1" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.05, 5.5)
+size = Vector3(3.50635, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Platform1a" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 3)
+size = Vector3(1.5, 0.5, 1.5)
+material = ExtResource("2_f3sl1")
+
+[node name="Cutout" parent="Platforms/Platform1a" instance=ExtResource("5_5t7j0")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.25, 0)
+
+[node name="QuiverTree" parent="Platforms/Platform1a" instance=ExtResource("6_yw0cs")]
+transform = Transform3D(1.145, 0, 0, 0, 1.145, 0, 0, 0, 1.145, 0, 0.25, 0)
+
+[node name="Bridge1a" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07159, -0.05, 0)
+size = Vector3(4.35681, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a2" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00883794, -0.05, 1.07763)
+size = Vector3(2.35391, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Platform2" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.25, 0)
+size = Vector3(1.5, 0.5, 1.5)
+material = ExtResource("2_f3sl1")
+
+[node name="Button" parent="Platforms/Platform2" instance=ExtResource("7_jxtyg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Bridge2" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, -0.05, 2.375)
+size = Vector3(3.25, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Gate" parent="Platforms/Bridge2" node_paths=PackedStringArray("button") instance=ExtResource("8_yppr0")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.41462, 0.05, 0)
+button = NodePath("../../Platform2/Button")
+
+[node name="Platform3" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.25, -2.5)
+size = Vector3(1.5, 0.5, 1.5)
+material = ExtResource("2_f3sl1")
+
+[node name="Transmuter1" parent="Platforms/Platform3" instance=ExtResource("9_ked7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, 0)
+
+[node name="Bridge3" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, -0.05, -1.25)
+size = Vector3(1.00427, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Platform4" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.25, 6.5)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(5, 0.5, 5)
+material = ExtResource("2_f3sl1")
+
+[node name="Cutout" parent="Platforms/Platform4" instance=ExtResource("5_5t7j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.225, 0.7)
+
+[node name="Ramp1" type="CSGMesh3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.75, -2.2)
+material_override = ExtResource("11_26mt5")
+mesh = SubResource("PrismMesh_mxj3p")
+material = ExtResource("11_26mt5")
+
+[node name="Ramp2" type="CSGMesh3D" parent="Platforms/Platform4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.4, 1.75, -1.6)
+mesh = SubResource("PrismMesh_oh4sg")
+material = ExtResource("11_26mt5")
+
+[node name="Turn1" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.75, -1.9)
+size = Vector3(0.6, 1, 1.2)
+material = ExtResource("11_26mt5")
+
+[node name="RampSupport1" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.75, -1.6)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(3, 1, 0.6)
+material = ExtResource("11_26mt5")
+
+[node name="Bridge1" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79896, 2, -1.6)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(1.4, 0.5, 0.6)
+material = ExtResource("11_26mt5")
+
+[node name="Pillar1" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 1.25, -1.6)
+visible = false
+material_override = ExtResource("10_dj5xn")
+size = Vector3(0.5, 2, 0.6)
+material = ExtResource("11_26mt5")
+
+[node name="Bridge2" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 2, 0.3)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(0.5, 0.5, 3.25)
+material = ExtResource("11_26mt5")
+
+[node name="Pillar2" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 1.25, 2.2)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(0.5, 2, 0.6)
+material = ExtResource("11_26mt5")
+
+[node name="Bridge3" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7219, 2, 1.95672)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(1.53623, 0.5, 1.08617)
+material = ExtResource("11_26mt5")
+
+[node name="Transmuter" parent="Platforms/Platform4/Bridge3" instance=ExtResource("9_ked7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.235629, 0.275995, -0.0120544)
+transmute_type = 0
+
+[node name="Pillar3" type="CSGBox3D" parent="Platforms/Platform4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1.25, 2.25)
+material_override = ExtResource("10_dj5xn")
+size = Vector3(0.6, 2, 0.5)
+material = ExtResource("11_26mt5")
+
+[node name="Transmuter2" parent="Platforms/Platform4" instance=ExtResource("9_ked7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.25, 1)
+transmute_type = 1
+
+[node name="Boxes" type="Node3D" parent="Platforms/Platform4"]
+
+[node name="Box" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.213543, 0.46, -0.146279)
+
+[node name="Box2" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.311693, 0.46, -0.328111)
+
+[node name="Box3" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334048, 0.46, 0.223124)
+
+[node name="Box4" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0226393, 0.973366, -0.150862)
+
+[node name="Box5" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0638618, 0.466101, 0.977848)
+
+[node name="Box7" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.187681, 0.984715, 0.576879)
+
+[node name="Box8" parent="Platforms/Platform4/Boxes" instance=ExtResource("12_c0ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51414, 0.46, 1.71499)
+
+[node name="QuiverTree" parent="Platforms/Platform4" instance=ExtResource("6_yw0cs")]
+transform = Transform3D(1.865, 0, 0, 0, 1.865, 0, 0, 0, 1.865, 1.62859, 0.2, 1.63096)
+
+[node name="Platform5" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, -0.25, 12.5)
+size = Vector3(0.7, 0.5, 0.7)
+material = ExtResource("2_f3sl1")
+
+[node name="Platform6" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, -0.25, 18.5)
+size = Vector3(0.7, 0.5, 5)
+material = ExtResource("2_f3sl1")
+
+[node name="CurvedRails90" parent="Platforms/Platform6" instance=ExtResource("13_myxrl")]
+transform = Transform3D(-0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 1.8, 0.17, 2)
+
+[node name="StraightRails" parent="Platforms/Platform6" instance=ExtResource("14_7i6mq")]
+transform = Transform3D(0.8, -0.000474556, -0.000293508, 0.000551437, 0.736686, 0.31192, 8.52497e-05, -0.31192, 0.736686, 1.8, -0.455, -1.051)
+
+[node name="HeavyBall" parent="Platforms/Platform6" instance=ExtResource("15_uxq65")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80315, 0.582265, 1.4814)
+
+[node name="RampSupport1" type="CSGBox3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -2.19966)
+size = Vector3(0.7, 0.5, 0.6)
+material = ExtResource("2_f3sl1")
+
+[node name="RampSupport2" type="CSGBox3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2.2)
+size = Vector3(0.7, 0.5, 0.6)
+material = ExtResource("2_f3sl1")
+
+[node name="Ramp" type="CSGMesh3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84656, 1.24646, -2.2)
+material_override = ExtResource("11_26mt5")
+mesh = SubResource("PrismMesh_s1hqc")
+material = ExtResource("11_26mt5")
+
+[node name="Platform7" type="CSGBox3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.64488, 1.99342, -2.19987)
+size = Vector3(0.587048, 0.5, 0.594495)
+material = ExtResource("2_f3sl1")
+
+[node name="SingleRail" type="StaticBody3D" parent="Platforms/Platform6/Platform7"]
+transform = Transform3D(0.8, -0.000474556, -0.000146754, 0.000474547, 0.8, -1.20622e-05, 0.000293522, 2.39502e-05, 0.4, 0, 0.17, 1.08919)
+physics_material_override = ExtResource("16_jdoty")
+
+[node name="CollisionShapeL" type="CollisionShape3D" parent="Platforms/Platform6/Platform7/SingleRail"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yrlxl")
+
+[node name="MeshL" type="MeshInstance3D" parent="Platforms/Platform6/Platform7/SingleRail/CollisionShapeL"]
+mesh = SubResource("CylinderMesh_gmpct")
+skeleton = NodePath("../../..")
+
+[node name="Platform8" type="CSGBox3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.645, 1.993, 0)
+size = Vector3(0.587048, 0.5, 0.594495)
+material = ExtResource("2_f3sl1")
+
+[node name="SingleRail" type="StaticBody3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(-3.49691e-08, 0, 0.4, 0, 0.8, 0, -0.8, 0, -1.74846e-08, 1.09, 0.17, 0)
+physics_material_override = ExtResource("16_jdoty")
+
+[node name="CollisionShapeL" type="CollisionShape3D" parent="Platforms/Platform6/Platform8/SingleRail"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yrlxl")
+
+[node name="MeshL" type="MeshInstance3D" parent="Platforms/Platform6/Platform8/SingleRail/CollisionShapeL"]
+mesh = SubResource("CylinderMesh_gmpct")
+skeleton = NodePath("../../..")
+
+[node name="SingleRail2" type="StaticBody3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.4, 1.82099, 0.17, 0.801931)
+physics_material_override = ExtResource("16_jdoty")
+
+[node name="CollisionShapeL" type="CollisionShape3D" parent="Platforms/Platform6/Platform8/SingleRail2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yrlxl")
+
+[node name="MeshL" type="MeshInstance3D" parent="Platforms/Platform6/Platform8/SingleRail2/CollisionShapeL"]
+mesh = SubResource("CylinderMesh_gmpct")
+skeleton = NodePath("../../..")
+
+[node name="SingleCurvedRail90" parent="Platforms/Platform6/Platform8" instance=ExtResource("18_k2heb")]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 1.54136, 0.17, 3.78207)
+
+[node name="SingleCurvedRail91" parent="Platforms/Platform6/Platform8" instance=ExtResource("18_k2heb")]
+transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, -2.38485, 0.17, 3.78207)
+
+[node name="Platform9" type="CSGBox3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81838, -1.29761, 1.89624)
+size = Vector3(0.587048, 3.09521, 0.594495)
+material = ExtResource("2_f3sl1")
+
+[node name="Platform11" type="CSGBox3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.583571, -2.53931, 1.89624)
+size = Vector3(3, 0.6, 0.6)
+material = ExtResource("2_f3sl1")
+
+[node name="Platform12" type="CSGBox3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.643451, -2.53931, 3.06691)
+size = Vector3(0.7, 0.6, 2.94463)
+material = ExtResource("2_f3sl1")
+
+[node name="Platform10" type="CSGBox3D" parent="Platforms/Platform6/Platform8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.556661, -1.29119, 4.04924)
+size = Vector3(1, 3.09637, 1)
+material = ExtResource("2_f3sl1")
+
+[node name="Transmuter1" parent="Platforms/Platform6/Platform8/Platform10" instance=ExtResource("9_ked7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57428, 0)
+
+[node name="Platform9" type="CSGBox3D" parent="Platforms/Platform6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80188, -1.58437, -2.88945)
+size = Vector3(1.16597, 0.5, 1.19814)
+material = ExtResource("2_f3sl1")
+
+[node name="Button" parent="Platforms/Platform6/Platform9" instance=ExtResource("7_jxtyg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Platform7" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -0.25, 14)
+size = Vector3(3, 0.5, 3)
+material = ExtResource("2_f3sl1")
+
+[node name="Cutout2" type="CSGCombiner3D" parent="Platforms/Platform7"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.25, 0)
+operation = 2
+
+[node name="Cutout1" type="CSGBox3D" parent="Platforms/Platform7/Cutout2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0, -3.3)
+size = Vector3(2.5, 0.05, 2.5)
+material = ExtResource("19_m45xw")
+
+[node name="QuiverTree" parent="Platforms/Platform7/Cutout2/Cutout1" instance=ExtResource("6_yw0cs")]
+transform = Transform3D(5.743, 0, 0, 0, 5.743, 0, 0, 0, 5.743, 0, 0, 0)
+
+[node name="Cutout2" type="CSGBox3D" parent="Platforms/Platform7/Cutout2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0, 3.3)
+size = Vector3(2.5, 0.05, 2.5)
+material = ExtResource("19_m45xw")
+
+[node name="QuiverTree2" parent="Platforms/Platform7/Cutout2/Cutout2" instance=ExtResource("6_yw0cs")]
+transform = Transform3D(3.953, 0, 0, 0, 3.953, 0, 0, 0, 3.953, 0, 0, 0)
+
+[node name="Cutout3" type="CSGBox3D" parent="Platforms/Platform7/Cutout2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 0, -3.3)
+size = Vector3(2.5, 0.05, 2.5)
+material = ExtResource("19_m45xw")
+
+[node name="QuiverTree3" parent="Platforms/Platform7/Cutout2/Cutout3" instance=ExtResource("6_yw0cs")]
+transform = Transform3D(3.838, 0, 0, 0, 3.838, 0, 0, 0, 3.838, 0, 0, 0)
+
+[node name="Cutout4" type="CSGCylinder3D" parent="Platforms/Platform7/Cutout2"]
+radius = 2.0
+height = 0.1
+material = ExtResource("20_7rq7h")
+
+[node name="Cutout5" type="CSGCylinder3D" parent="Platforms/Platform7/Cutout2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0853778, 0)
+radius = 1.5708
+height = 0.1
+material = ExtResource("20_7rq7h")
+
+[node name="Cutout6" type="CSGCylinder3D" parent="Platforms/Platform7/Cutout2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.180091, 0)
+radius = 1.10413
+height = 0.1
+material = ExtResource("20_7rq7h")
+
+[node name="Bridge1a3" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24714, 0.2, 6.13794)
+size = Vector3(3.00928, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a5" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112016, 0.2, 7.94167)
+size = Vector3(3.5689, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a7" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.754725, 0.2, 4.39564)
+size = Vector3(2, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a4" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.84624, 0.2, 7.04308)
+size = Vector3(2, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a8" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.147963, 0.2, 2.99639)
+size = Vector3(2.99561, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Bridge1a6" type="CSGBox3D" parent="Platforms/Platform7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.6462, 0.2, 6.16737)
+size = Vector3(3.73552, 0.1, 0.2)
+material = ExtResource("4_v4u5e")
+
+[node name="Gate" parent="Platforms/Platform7" node_paths=PackedStringArray("button") instance=ExtResource("8_yppr0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.2, 0.25, 7.94036)
+button = NodePath("../../Platform6/Platform9/Button")
+
+[node name="Finish" type="RayCast3D" parent="Platforms/Platform7"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 1, 0)
+
+[node name="MainMenuSpawnPoint" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 2.3, 4.9)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.623811, -0.390788, 0.676864, 1.00664e-09, 0.866025, 0.5, -0.781575, -0.311905, 0.540236, 0, 0, 0)
+light_energy = 1.5
+shadow_enabled = true
+directional_shadow_blend_splits = true
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_656td")

@@ -1,0 +1,17 @@
+Textures:
+https://polyhaven.com/a/floor_tiles_06
+https://polyhaven.com/a/double_brick_floor
+https://polyhaven.com/a/fabric_pattern_07
+https://polyhaven.com/a/gravel_concrete_03
+https://polyhaven.com/a/green_metal_rust
+https://polyhaven.com/a/herringbone_parquet
+https://polyhaven.com/a/metal_plate
+https://polyhaven.com/a/mud_forest
+https://polyhaven.com/a/patterned_clay_plaster
+https://polyhaven.com/a/pavement_02
+https://polyhaven.com/a/raw_plank_wall
+https://polyhaven.com/a/rock_tile_floor
+https://polyhaven.com/a/autumn_field_puresky
+
+Models:
+https://polyhaven.com/a/quiver_tree_02

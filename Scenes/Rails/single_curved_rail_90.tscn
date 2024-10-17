@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8ekw2ouaavv6"]
+
+[ext_resource type="Material" uid="uid://bfneinyp81k6j" path="res://Materials/shiny_metal_1k.tres" id="1_maa7x"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hlyn2"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 1.3
+radial_segments = 24
+rings = 1
+
+[sub_resource type="TorusMesh" id="TorusMesh_6nvyv"]
+inner_radius = 0.97
+outer_radius = 1.13
+rings = 48
+ring_segments = 24
+
+[sub_resource type="BoxMesh" id="BoxMesh_ecciq"]
+size = Vector3(2, 1, 2)
+
+[node name="SingleCurvedRail90" type="CSGCombiner3D"]
+transform = Transform3D(0.8, 1.50059e-11, 2.3283e-11, -1.50059e-11, 0.8, 3.96364e-22, -2.3283e-11, -8.33093e-22, 0.8, 0, 0, 0)
+use_collision = true
+
+[node name="RailStartL" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 5.82077e-11, 9.85878e-13, -1.87583e-11, -4.37121e-08, -1, -5.82077e-11, 1, -4.37121e-08, -0.35, -1.45519e-11, 1.35)
+mesh = SubResource("CylinderMesh_hlyn2")
+material = ExtResource("1_maa7x")
+
+[node name="CurveL" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, -1.74957e-07, 8.73115e-11, 1.74837e-07, 1, -8.74243e-08, -5.82077e-11, 8.74224e-08, 1, 0.7, -2.72848e-11, 0.7)
+mesh = SubResource("TorusMesh_6nvyv")
+material = ExtResource("1_maa7x")
+
+[node name="IntersectionCube" type="CSGMesh3D" parent="CurveL"]
+transform = Transform3D(1, 1.50271e-11, -2.91038e-11, 1.32969e-11, 1, -1.81899e-12, 2.91038e-11, 0, 1, -1, 0, -1)
+operation = 1
+mesh = SubResource("BoxMesh_ecciq")
+material = ExtResource("1_maa7x")
+
+[node name="RailEndL" type="CSGMesh3D" parent="."]
+transform = Transform3D(-4.3714e-08, 1, -4.36969e-08, 5.45697e-12, -4.3734e-08, -1, -1, -4.37722e-08, 0, 1.35, 1.36424e-11, -0.35)
+mesh = SubResource("CylinderMesh_hlyn2")
+material = ExtResource("1_maa7x")

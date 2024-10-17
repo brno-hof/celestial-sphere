@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ylcmhol6vpe"]
+
+[ext_resource type="Material" uid="uid://bwg2whyudp4d0" path="res://Materials/raw_plank_wall_1k.tres" id="1_le76v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ksc3n"]
+friction = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_8l66w"]
+material = ExtResource("1_le76v")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lj7ss"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Box" type="RigidBody3D"]
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_ksc3n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8l66w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00323391, 0, 0)
+shape = SubResource("BoxShape3D_lj7ss")

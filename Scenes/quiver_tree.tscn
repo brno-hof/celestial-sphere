@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2xwm5spm55xf"]
+
+[ext_resource type="PackedScene" uid="uid://cchk1t6sm1jm3" path="res://Assets/QuiverTree/quiver_tree_02_1k.blend" id="1_rajak"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g6oji"]
+height = 1.0
+radius = 0.1
+
+[node name="QuiverTree" type="StaticBody3D"]
+
+[node name="quiver_tree_02_1k" parent="." instance=ExtResource("1_rajak")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_g6oji")
